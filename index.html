@@ -6,9 +6,9 @@
     <title>Advanced 150-Day Study Checklist Generator</title>
     <style>
         :root {
-            --primary-color: #1e293b;
-            --accent-color: #3b82f6;
-            --border-color: #0f172a;
+            --primary-color: #000000;
+            --accent-color: #2563eb;
+            --border-color: #000000;
             --bg-color: #f8fafc;
             --sidebar-width: 300px;
         }
@@ -43,8 +43,8 @@
         .sidebar h2 {
             font-size: 1.2rem;
             margin-bottom: 15px;
-            color: #0f172a;
-            border-bottom: 2px solid #e2e8f0;
+            color: #000000;
+            border-bottom: 2px solid #000000;
             padding-bottom: 8px;
         }
 
@@ -57,7 +57,7 @@
             font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 5px;
-            color: #475569;
+            color: #334155;
         }
 
         .control-group input, .control-group select {
@@ -82,7 +82,7 @@
         }
 
         .btn:hover {
-            background: #2563eb;
+            background: #1d4ed8;
         }
 
         .btn-secondary {
@@ -132,27 +132,28 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 700;
-            color: #64748b;
+            color: #000000;
         }
 
         .page-title {
             font-size: 1.4rem;
             font-weight: 900;
             letter-spacing: -0.5px;
-            color: #0f172a;
+            color: #000000;
         }
 
         .target-goal {
             font-size: 0.95rem;
             font-weight: 700;
-            color: #1e293b;
-            border-bottom: 1px dashed #0f172a;
+            color: #000000;
+            border-bottom: 1px dashed #000000;
             padding-bottom: 2px;
         }
 
         .page-footer-info {
             font-size: 0.75rem;
-            color: #64748b;
+            color: #000000;
+            font-weight: 600;
         }
 
         /* Table Design */
@@ -169,31 +170,35 @@
         }
 
         th {
-            background-color: #0f172a;
-            color: white;
+            background-color: #ffffff;
+            color: #000000;
             font-size: 0.75rem;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 6px 2px;
+            padding: 8px 2px;
+            border-bottom: 2px solid #000000;
         }
 
         td {
-            padding: 4px 2px;
+            padding: 5px 2px;
             font-size: 0.75rem;
+            color: #000000;
         }
 
         .day-cell {
             font-weight: 800;
             font-size: 0.75rem;
-            background: #f8fafc;
+            background: #ffffff;
             padding: 4px;
             line-height: 1.1;
+            color: #000000;
         }
 
         .day-sub {
             font-size: 0.6rem;
-            font-weight: 500;
-            color: #64748b;
+            font-weight: 600;
+            color: #000000;
             margin-top: 2px;
         }
 
@@ -203,7 +208,7 @@
             -webkit-appearance: none;
             width: 14px;
             height: 14px;
-            border: 1.5px solid #0f172a;
+            border: 1.5px solid #000000;
             border-radius: 2px;
             background-color: white;
             cursor: pointer;
@@ -213,7 +218,7 @@
         }
 
         input[type="checkbox"]:checked {
-            background-color: #0f172a;
+            background-color: #000000;
         }
 
         input[type="checkbox"]:checked::after {
@@ -229,7 +234,7 @@
         .checkbox-group {
             display: flex;
             justify-content: center;
-            gap: 3px;
+            gap: 4px;
             flex-wrap: wrap;
         }
 
@@ -285,6 +290,11 @@
                 width: 210mm;
                 height: 297mm;
                 padding: 12mm;
+            }
+            th {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                -webkit-print-color-adjust: exact;
             }
         }
     </style>
@@ -372,7 +382,7 @@
                 const pageDiv = document.createElement('div');
                 pageDiv.className = 'page';
 
-                // Header HTML
+                // Balanced Column Width Percentages
                 let html = `
                     <div>
                         <div class="page-header">
@@ -385,12 +395,12 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th style="width: 12%;">DAY</th>
-                                    <th style="width: 18%;">LECTURES</th>
-                                    <th style="width: 10%;">HW / MOD</th>
+                                    <th style="width: 14%;">DAY</th>
+                                    <th style="width: 16%;">LECTURES</th>
+                                    <th style="width: 10%;">HW/MOD</th>
                                     <th style="width: 8%;">DPP</th>
                                     <th style="width: 8%;">PYQ</th>
-                                    <th style="width: 36%;">QUESTIONS (${qCount} = ${qCount} $\Box$)</th>
+                                    <th style="width: 36%;">QUESTIONS (${qCount} BOXES)</th>
                                     <th style="width: 8%;">REV</th>
                                 </tr>
                             </thead>
