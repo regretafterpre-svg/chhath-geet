@@ -6,9 +6,9 @@
     <title>Advanced 150-Day Study Checklist Generator</title>
     <style>
         :root {
-            --primary-color: #1e293b;
-            --accent-color: #3b82f6;
-            --border-color: #0f172a;
+            --primary-color: #000000;
+            --accent-color: #2563eb;
+            --border-color: #000000;
             --bg-color: #f8fafc;
             --sidebar-width: 300px;
         }
@@ -27,6 +27,26 @@
             min-height: 100vh;
         }
 
+        /* Mobile Sidebar Toggle Button */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            align-items: center;
+            justify-content: center;
+        }
+
         /* Sidebar Control Panel */
         .sidebar {
             width: var(--sidebar-width);
@@ -38,13 +58,14 @@
             overflow-y: auto;
             box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
             z-index: 100;
+            transition: transform 0.3s ease;
         }
 
         .sidebar h2 {
             font-size: 1.2rem;
             margin-bottom: 15px;
-            color: #0f172a;
-            border-bottom: 2px solid #e2e8f0;
+            color: #000000;
+            border-bottom: 2px solid #000000;
             padding-bottom: 8px;
         }
 
@@ -57,7 +78,7 @@
             font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 5px;
-            color: #475569;
+            color: #334155;
         }
 
         .control-group input, .control-group select {
@@ -82,7 +103,7 @@
         }
 
         .btn:hover {
-            background: #2563eb;
+            background: #1d4ed8;
         }
 
         .btn-secondary {
@@ -101,6 +122,7 @@
             flex-direction: column;
             align-items: center;
             background: #e2e8f0;
+            width: calc(100% - var(--sidebar-width));
         }
 
         /* Page Layout (A4 simulation) */
@@ -132,27 +154,28 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 700;
-            color: #64748b;
+            color: #000000;
         }
 
         .page-title {
             font-size: 1.4rem;
             font-weight: 900;
             letter-spacing: -0.5px;
-            color: #0f172a;
+            color: #000000;
         }
 
         .target-goal {
             font-size: 0.95rem;
             font-weight: 700;
-            color: #1e293b;
-            border-bottom: 1px dashed #0f172a;
+            color: #000000;
+            border-bottom: 1px dashed #000000;
             padding-bottom: 2px;
         }
 
         .page-footer-info {
             font-size: 0.75rem;
-            color: #64748b;
+            color: #000000;
+            font-weight: 600;
         }
 
         /* Table Design */
@@ -169,31 +192,35 @@
         }
 
         th {
-            background-color: #0f172a;
-            color: white;
+            background-color: #ffffff;
+            color: #000000;
             font-size: 0.75rem;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 6px 2px;
+            padding: 8px 2px;
+            border-bottom: 2px solid #000000;
         }
 
         td {
-            padding: 4px 2px;
+            padding: 5px 2px;
             font-size: 0.75rem;
+            color: #000000;
         }
 
         .day-cell {
             font-weight: 800;
             font-size: 0.75rem;
-            background: #f8fafc;
+            background: #ffffff;
             padding: 4px;
             line-height: 1.1;
+            color: #000000;
         }
 
         .day-sub {
             font-size: 0.6rem;
-            font-weight: 500;
-            color: #64748b;
+            font-weight: 600;
+            color: #000000;
             margin-top: 2px;
         }
 
@@ -203,7 +230,7 @@
             -webkit-appearance: none;
             width: 14px;
             height: 14px;
-            border: 1.5px solid #0f172a;
+            border: 1.5px solid #000000;
             border-radius: 2px;
             background-color: white;
             cursor: pointer;
@@ -213,7 +240,7 @@
         }
 
         input[type="checkbox"]:checked {
-            background-color: #0f172a;
+            background-color: #000000;
         }
 
         input[type="checkbox"]:checked::after {
@@ -229,7 +256,7 @@
         .checkbox-group {
             display: flex;
             justify-content: center;
-            gap: 3px;
+            gap: 4px;
             flex-wrap: wrap;
         }
 
@@ -264,18 +291,37 @@
             resize: vertical;
         }
 
+        /* Responsive Media Queries */
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: flex;
+            }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 15px;
+            }
+        }
+
         /* Print Media Query */
         @media print {
             body {
                 background: none;
             }
-            .sidebar, .modal {
+            .sidebar, .modal, .mobile-toggle {
                 display: none !important;
             }
             .main-content {
                 margin: 0;
                 padding: 0;
                 background: none;
+                width: 100%;
             }
             .page {
                 box-shadow: none;
@@ -286,13 +332,21 @@
                 height: 297mm;
                 padding: 12mm;
             }
+            th {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                -webkit-print-color-adjust: exact;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Mobile Sidebar Toggle Button -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">⚙️</button>
+
     <!-- Sidebar Controls -->
-    <div class="sidebar">
+    <div class="sidebar" id="sidebarPanel">
         <h2>Checklist Builder</h2>
         
         <div class="control-group">
@@ -351,6 +405,10 @@
     </div>
 
     <script>
+        function toggleSidebar() {
+            document.getElementById('sidebarPanel').classList.toggle('active');
+        }
+
         function generateTracker() {
             const totalDays = parseInt(document.getElementById('totalDaysInput').value) || 150;
             const daysPerPage = parseInt(document.getElementById('daysPerPageInput').value) || 20;
@@ -372,7 +430,6 @@
                 const pageDiv = document.createElement('div');
                 pageDiv.className = 'page';
 
-                // Header HTML
                 let html = `
                     <div>
                         <div class="page-header">
@@ -385,12 +442,12 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th style="width: 12%;">DAY</th>
-                                    <th style="width: 18%;">LECTURES</th>
-                                    <th style="width: 10%;">HW / MOD</th>
+                                    <th style="width: 14%;">DAY</th>
+                                    <th style="width: 16%;">LECTURES</th>
+                                    <th style="width: 10%;">HW/MOD</th>
                                     <th style="width: 8%;">DPP</th>
                                     <th style="width: 8%;">PYQ</th>
-                                    <th style="width: 36%;">QUESTIONS (${qCount} = ${qCount} $\Box$)</th>
+                                    <th style="width: 36%;">QUESTIONS (${qCount} BOXES)</th>
                                     <th style="width: 8%;">REV</th>
                                 </tr>
                             </thead>
@@ -399,13 +456,11 @@
 
                 // Rows for each day on this page
                 for (let d = startDay; d <= endDay; d++) {
-                    // Lecture Checkboxes
                     let lecChecks = '';
                     for (let l = 0; l < lecCount; l++) {
                         lecChecks += `<input type="checkbox">`;
                     }
 
-                    // Question Checkboxes
                     let qChecks = '';
                     for (let q = 0; q < qCount; q++) {
                         qChecks += `<input type="checkbox">`;
@@ -442,6 +497,11 @@
 
                 pageDiv.innerHTML = html;
                 container.appendChild(pageDiv);
+            }
+            
+            // Auto close sidebar on mobile after clicking update
+            if(window.innerWidth <= 768) {
+                document.getElementById('sidebarPanel').classList.remove('active');
             }
         }
 
